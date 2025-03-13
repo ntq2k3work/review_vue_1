@@ -12,14 +12,27 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { computed, defineProps } from 'vue';
 
-// Reactive state for income and expenses
-const totalIncome = ref(0);
-const totalIncomeUS = computed(() => totalIncome.value.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+// Define the props for income and expenses
+const props = defineProps({
+    totalExpenses: {
+        type: Number,
+        required: true
+    },
+    totalIncome: {
+        type: Number,
+        required: true
+    }
+});
 
-const totalExpenses = ref(0);
-const totalExpensesUS = computed(() => totalExpenses.value.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+const totalIncomeUS = computed(() => 
+    props.totalIncome.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+);
+
+const totalExpensesUS = computed(() => 
+    props.totalExpenses.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+);
 </script>
 
 <style scoped>
@@ -33,7 +46,7 @@ const totalExpensesUS = computed(() => totalExpenses.value.toLocaleString('en-US
     background-color: #fff;
     padding: 16px 40px;
 }
-.section .title{
+.section .title {
     font-weight: bold;
     font-size: 1.2rem;
 }

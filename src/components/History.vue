@@ -1,8 +1,11 @@
 <template>
     <div>
-        <h2>History</h2>
+        <h2>History</h2> <hr>
         <ul class="list">
             <li v-for="item in history" :key="item.id">
+                <div class="actions">
+                    <button @click="handleDelete(item.id)">Delete</button>
+                </div>
                 <div class="name">{{ item.name }}</div>
                 <div class="cost">
                     <p>{{ item.cost }}</p>   
@@ -14,17 +17,25 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { defineProps } from 'vue';
 
-const history = reactive([
-    { id: 1, name: 'Item 1', cost: 100 },
-    { id: 2, name: 'Item 2', cost: -200 },
-    { id: 3, name: 'Item 3', cost: 300 }
-]);
+const emit = defineEmits(['deleted']);
 
+const props = defineProps({
+    history: {
+        type: Array,
+        required: true,
+    },
+});
 const colorStage = (item) => {
     return item.cost > 0 ? 'green' : 'red';
 };
+
+
+const handleDelete = (id) => {
+    emit('deleted', id);
+};
+
 </script>
 
 <style scoped>

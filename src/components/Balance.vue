@@ -6,14 +6,19 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { defineProps, computed } from 'vue';
 
 // Reactive total balance
-const total = ref(0.00);
+const props = defineProps({
+    total: {
+        type: Number,
+        required: true
+    }
+})
 
 // Computed property to format the total balance
 const formattedTotal = computed(() => {
-    return total.value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    return props.total.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 });
 </script>
 
